@@ -3,6 +3,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
+    exclude: '/node_modules/**, dist/**',
     ecmaFeatures: {
       jsx: true
     }
@@ -16,7 +17,7 @@ module.exports = {
   root: true,
   rules: {
     camelcase: 'off',
-    semi: ['error', 'never'],
+    semi: [2, 'never'],
     'comma-dangle': 'off'
   }
 }

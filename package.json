@@ -20,7 +20,7 @@
     "rollup-plugin-serve": "^1.1.0"
   },
   "scripts": {
-    "test": "lint-staged",
+    "test": "npm lint && lint-staged",
     "build:dev": "rollup -c",
     "serve": "cross-env NODE_ENV=development rollup -c -w",
     "lint": "eslint --ext .js,.ts src",
