@@ -4,7 +4,9 @@ This is an animation plugin
 ### 项目依赖
 ```shell
 npm i --save-dev rollup @babel/core @babel/preset-env rollup-plugin-babel rollup-plugin-serve @rollup/plugin-alias rollup-plugin-eslint prettier lint-staged husky eslint babel-eslint cross-env
-```
+npx husky install
+npx husky add .husky/pre-commit "npm test"
+```__
 - rollup javascript 打包工具，只打包 javascript，打包的结果相对简单
 
 - @babel/core Babel 是一个工具链，主要用于将 ECMAScript 2015+ 版本的代码转换为向后兼容的 JavaScript 语法，以便能够运行在当前和旧版本的浏览器或其他环境中。
