@@ -16,7 +16,7 @@ module.exports = {
   root: true,
   rules: {
     camelcase: 'off',
-    semi: ['error', 'always'],
+    semi: ['error', 'never'],
     'comma-dangle': 'off'
   }
-};
+}

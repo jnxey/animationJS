@@ -40,3 +40,7 @@ npx husky add .husky/pre-commit "npm test"
 安装依赖网速不好的情况，可以考虑切换淘宝镜像
 npm config set registry https://registry.npm.taobao.org
 npm config get registry
+
+### 编辑环境格式化配置
+westorm: 进入 设置 -> Languages & Frameworks -> javascript -> prettier 进行prettier配置
+vscode: 添加.vscode/setting.js文件进行配置
