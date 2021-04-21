@@ -34,3 +34,7 @@ npm i --save-dev rollup @babel/core @babel/preset-env rollup-plugin-babel rollup
 ---
 注意：使用 npm 安装 eslint 和 husky，在 windows 操作系统下, 用 yarn 安装依赖，不会触发 husky pre-commit 钩子命令。
 注意：vscode 需要安装 prettier 与 eslint 插件，vscode 插件配置在.vscode/settings.json 文件中
+---
+安装依赖网速不好的情况，可以考虑切换淘宝镜像
+npm config set registry https://registry.npm.taobao.org
+npm config get registry
