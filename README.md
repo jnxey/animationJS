@@ -3,7 +3,7 @@ This is an animation plugin
 
 ### 项目依赖
 ```shell
-npm i --save-dev rollup @babel/core @babel/preset-env rollup-plugin-babel rollup-plugin-serve @rollup/plugin-alias rollup-plugin-eslint lint-staged husky eslint babel-eslint cross-env
+npm i --save-dev rollup @babel/core @babel/preset-env rollup-plugin-babel rollup-plugin-serve @rollup/plugin-alias rollup-plugin-eslint prettier lint-staged husky eslint babel-eslint cross-env
 ```
 - rollup javascript 打包工具，只打包 javascript，打包的结果相对简单
 
