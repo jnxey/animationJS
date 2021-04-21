@@ -21,7 +21,9 @@ npm i --save-dev rollup @babel/core @babel/preset-env rollup-plugin-babel rollup
 
 - lint-staged 是一个在git暂存文件上运行linters的工具
 
--  husky 可以防止使用 Git hooks 的一些不好的 commit 或者 push
+- prettier 是一个代码美化工具
+
+- husky 可以防止使用 Git hooks 的一些不好的 commit 或者 push
 
 - eslint 代码质量检查 npm run lint
 
