@@ -1,0 +1,49 @@
+{
+  "name": "animationjs",
+  "version": "1.0.0",
+  "description": "This is an animation plugin",
+  "main": "./dist/animationJS.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.13.16",
+    "@babel/preset-env": "^7.13.15",
+    "@rollup/plugin-alias": "^3.1.2",
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.24.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
+    "rollup": "^2.45.2",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-eslint": "^7.0.0",
+    "rollup-plugin-serve": "^1.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:dev": "rollup -c",
+    "serve": "cross-env NODE_ENV=development rollup -c -w",
+    "lint": "eslint --ext .js,.ts src"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**": [
+      "prettier --config .prettierrc --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jnxey/animationJS.git"
+  },
+  "author": "lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jnxey/animationJS/issues"
+  },
+  "homepage": "https://github.com/jnxey/animationJS#readme"
+}
