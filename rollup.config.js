@@ -9,6 +9,10 @@ const rootPath = path.resolve(__dirname)
 export default {
   // 入口
   input: 'src/index.js',
+  watch: {
+    include: 'src/**',
+    exclude: 'node_modules/**'
+  },
   // 出口
   output: {
     // 出口目录
@@ -18,12 +22,12 @@ export default {
     name: 'Animation',
     // 模块规范
     format: 'umd',
-    // es6 -> es5-
-    sourcemap: true
+    // sourcemap
+    sourcemap: false
   },
   plugins: [
     babel({
-      exclude: 'node_modules/**,  dist/**'
+      include: 'src/**'
     }),
     process.env.NODE_ENV === 'development'
       ? serve({

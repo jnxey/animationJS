@@ -22,7 +22,7 @@
   "scripts": {
     "test": "npm lint && lint-staged",
     "build:dev": "rollup -c",
-    "serve": "cross-env NODE_ENV=development rollup -c -w",
+    "serve": "cross-env NODE_ENV=development rollup -c ./rollup.config.js -w",
     "lint": "eslint --ext .js,.ts src",
     "prepare": "husky install"
   },

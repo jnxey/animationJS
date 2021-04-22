@@ -3,7 +3,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
-    exclude: '/node_modules/**, dist/**',
+    include: '/src/**',
     ecmaFeatures: {
       jsx: true
     }
@@ -17,7 +17,7 @@ module.exports = {
   root: true,
   rules: {
     camelcase: 'off',
-    semi: [2, 'never'],
+    semi: 0, // 语句可以不需要分号结尾
     'comma-dangle': 'off'
   }
 }

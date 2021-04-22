@@ -25,7 +25,7 @@ class Animation {
   constructor(options) {
     if (typeof options !== 'object' || !options) throw Error('options must be object')
     this.duration = options.duration || 500
-    this.curve = curves.includes(options.curve) ? options.curve : 'linear'
+    this.curve = curves.indexOf(options.curve) > -1 ? options.curve : 'linear'
     this.start = options.start || 0
     this.end = options.end || 100
     this.value = this.start
