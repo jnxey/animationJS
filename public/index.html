@@ -24,6 +24,7 @@
     <button onclick="reverseAnimate()">reverse</button>
     <button onclick="repeatAnimate()">repeat</button>
     <button onclick="repeatReverseAnimate()">repeat reverse</button>
+    <button onclick="combAnimate()">combAnimate</button>
     <div class="move-block"></div>
   </div>
   <!-- js -->
@@ -37,6 +38,17 @@
       // console.log(value)
       target.style.transform = `translateX(${value}px)`
     })
+
+    const animation1 = new AnimationJS({ duration: 2000, from: 0, to: 400 })
+    animation1.addListener((value) => {
+      target.style.transform = `translateX(${value}px)`
+    })
+    const animation2 = new AnimationJS({ duration: 1000, from: 0, to: 30 })
+    animation2.addListener((value) => {
+      target.style.borderRadius = `${value}px`
+    })
+
+
     function startAnimate() {
       animation.forward()
     }
@@ -57,6 +69,12 @@
     }
     function repeatReverseAnimate() {
       animation.repeat(true)
+    }
+    function combAnimate() {
+      animation1.addComplete(() => {
+        animation2.forward()
+      })
+      animation1.forward(true)
     }
   </script>
 </body>

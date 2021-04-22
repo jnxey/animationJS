@@ -19,6 +19,8 @@ class Animation {
   runTime
   /// 监听事件容器
   controllers = []
+  /// 动画完成执行
+  completes = []
   /// 当前运动状态, init, forward-moving, reverse-moving
   _movingStatus = 'init'
   /// 当前运动方式，forward, reverse, forward-reverse, forward-infinite, forward-reverse-infinite
@@ -54,6 +56,24 @@ class Animation {
     })
   }
 
+  /// 添加完成事件
+  addComplete(fn) {
+    this.completes.push(fn)
+  }
+
+  /// 移除监听事件
+  removeComplete(fn) {
+    let index = this.completes.indexOf(fn)
+    if (index > -1) this.completes.splice(index, 1)
+  }
+
+  /// 执行完成事件
+  _executeCompletes(_value) {
+    this.completes.forEach((fn) => {
+      if (typeof fn === 'function') fn(_value)
+    })
+  }
+
   /// 执行动画，接收一个默认开始的时间
   _run({ reverse = false, fromTime = 0, resolve }) {
     this._movingStatus = reverse ? 'moving-reverse' : 'moving-forward'
@@ -68,9 +88,16 @@ class Animation {
           this.value = reverse ? this.from : this.to
           this.timer?.clear()
           this._movingStatus = 'init'
+          this._executeListener(this.value)
           if (typeof resolve === 'function') resolve()
+          if (this._movingType === 'forward' || this._movingType === 'reverse') {
+            this._executeCompletes(this._movingType)
+          } else if (this._movingType === 'forward-reverse') {
+            if (reverse) this._executeCompletes(this._movingType)
+          }
+        } else {
+          this._executeListener(this.value)
         }
-        this._executeListener(this.value)
       },
       this.fps,
       fromTime
@@ -112,10 +139,13 @@ class Animation {
   /// 继续动画
   continue() {
     if (this._movingStatus === 'init') return
+    /// 当前运动状态
     let reverse = this._movingStatus === 'moving-reverse'
     if (this._movingType === 'forward' || this._movingType === 'reverse') {
+      /// 当前运动类型为正向或反向
       this._run({ reverse, fromTime: this.runTime })
     } else if (this._movingType === 'forward-reverse') {
+      /// 当前运动类型为正向->反向
       if (reverse) {
         this._run({ reverse, fromTime: this.runTime })
       } else {
@@ -128,6 +158,7 @@ class Animation {
         })
       }
     } else if (this._movingType === 'forward-infinite') {
+      /// 当前运动类型为正向->无限
       this._run({
         reverse,
         fromTime: this.runTime,
@@ -136,6 +167,7 @@ class Animation {
         }
       })
     } else if (this._movingType === 'forward-reverse-infinite') {
+      /// 当前运动类型为正向->无限->无限
       if (reverse) {
         this._run({
           reverse: true,
