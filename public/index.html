@@ -1,26 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <style>
+    .move-block {
+      position: fixed;
+      width: 100px;
+      height: 100px;
+      background-color: blueviolet;
+      top: 100px;
+      left: 0;
+    }
+  </style>
 </head>
 <body>
-<div id="app">
-</div>
-<!-- js -->
-<!-- 开发环境版本，包含了有帮助的命令行警告 -->
-<script src="http://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="../dist/animationJS.dev.js"></script>
-<script>
-  var vm = new Vue({
-    el: '#app',
-    data: function () {
-      return {};
-    },
-    mounted: function () {
+  <div id="app">
+    <button onclick="startAnimate()">forward</button>
+    <button onclick="startReverseAnimate()">forward reverse</button>
+    <button onclick="stopAnimate()">stop</button>
+    <button onclick="continueAnimate()">continue</button>
+    <button onclick="reverseAnimate()">reverse</button>
+    <button onclick="repeatAnimate()">repeat</button>
+    <button onclick="repeatReverseAnimate()">repeat reverse</button>
+    <div class="move-block"></div>
+  </div>
+  <!-- js -->
+  <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+  <script src="../dist/animationJS.dev.js"></script>
+  <script>
+    const target = document.querySelector('.move-block')
+    const animation = new AnimationJS({ duration: 2000, from: 0, to: 400 })
+    animation.addListener((value) => {
+      // console.log('----------animate------------')
+      // console.log(value)
+      target.style.transform = `translateX(${value}px)`
+    })
+    function startAnimate() {
+      animation.forward()
     }
-  });
-</script>
+    function startReverseAnimate() {
+      animation.forward(true)
+    }
+    function stopAnimate() {
+      animation.stop()
+    }
+    function continueAnimate() {
+      animation.continue()
+    }
+    function reverseAnimate() {
+      animation.reverse()
+    }
+    function repeatAnimate() {
+      animation.repeat()
+    }
+    function repeatReverseAnimate() {
+      animation.repeat(true)
+    }
+  </script>
 </body>
 </html>

@@ -19,7 +19,7 @@ export default {
     file:
       process.env.NODE_ENV === 'development' ? 'dist/animationJS.dev.js' : 'dist/animationJS.js',
     // 全局变量名字
-    name: 'Animation',
+    name: 'AnimationJS',
     // 模块规范
     format: 'umd',
     // sourcemap
