@@ -82,7 +82,7 @@ class Animation {
     this.timer = new AnimationFrame(
       (time) => {
         this.runTime = time
-        this.value = this._getLinearValue(reverse)
+        this.value = this._getRunValue(reverse)
         /// 是否动画结束
         if (this.runTime >= this.duration) {
           this.value = reverse ? this.from : this.to
@@ -222,13 +222,61 @@ class Animation {
   }
 
   /// 取值
-  _getLinearValue(reverse = false) {
+  _getRunValue(reverse = false) {
     let radio = this.runTime / this.duration
+    switch (this.curve) {
+      case 'linear':
+        radio = Animation.getLinear(radio)
+        break
+      case 'decelerate':
+        radio = Animation.getDecelerate(radio)
+        break
+      case 'ease':
+        radio = Animation.getEase(radio)
+        break
+      case 'easeIn':
+        radio = Animation.getEaseIn(radio)
+        break
+      case 'easeOut':
+        radio = Animation.getEaseOut(radio)
+        break
+    }
     if (reverse) {
       return (this.from - this.to) * radio + this.to
     } else {
       return (this.to - this.from) * radio + this.from
     }
+  }
+
+  /// 物理运动轨迹
+
+  /// 线性
+  static getLinear(radio) {
+    return radio
+  }
+
+  /// 匀减速
+  static getDecelerate(radio) {
+    return (2 - radio) * radio
+  }
+
+  /// 开始加速，后面减速
+  static getEase(radio) {
+    if (radio <= 0.5) {
+      return radio - (0.5 - radio) * radio * 1.5
+    } else {
+      return radio + (radio - 0.5) * (1 - radio) * 1.5
+    }
+  }
+
+  /// 开始慢，后面快
+  static getEaseIn(radio) {
+    return radio * radio
+  }
+
+  /// 开始快，后面慢
+  static getEaseOut(radio) {
+    return radio + (1 - radio) * radio * 1.5
   }
 }
 

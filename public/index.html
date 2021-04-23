@@ -32,7 +32,7 @@
   <script src="../dist/animationJS.dev.js"></script>
   <script>
     const target = document.querySelector('.move-block')
-    const animation = new AnimationJS({ duration: 2000, from: 0, to: 400 })
+    const animation = new AnimationJS({ duration: 2000, from: 0, to: 400,curve: 'easeOut' })
     animation.addListener((value) => {
       // console.log('----------animate------------')
       // console.log(value)
