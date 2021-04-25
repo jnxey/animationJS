@@ -1,4 +1,4 @@
-const curves = ['linear', 'decelerate', 'ease', 'easeIn', 'easeOut', 'easeInOut']
+const curves = ['linear', 'ease', 'easeIn', 'easeOut', 'easeInOut']
 
 class Animation {
   /// 动画持续时间
@@ -138,20 +138,21 @@ class Animation {
 
   /// 继续动画
   continue() {
+    let fromTime = this.runTime
     if (this._movingStatus === 'init') return
     /// 当前运动状态
     let reverse = this._movingStatus === 'moving-reverse'
     if (this._movingType === 'forward' || this._movingType === 'reverse') {
       /// 当前运动类型为正向或反向
-      this._run({ reverse, fromTime: this.runTime })
+      this._run({ reverse, fromTime })
     } else if (this._movingType === 'forward-reverse') {
       /// 当前运动类型为正向->反向
       if (reverse) {
-        this._run({ reverse, fromTime: this.runTime })
+        this._run({ reverse, fromTime })
       } else {
         this._run({
           reverse,
-          fromTime: this.runTime,
+          fromTime,
           resolve: () => {
             this._run({ reverse: true })
           }
@@ -161,7 +162,7 @@ class Animation {
       /// 当前运动类型为正向->无限
       this._run({
         reverse,
-        fromTime: this.runTime,
+        fromTime,
         resolve: () => {
           this.repeat(false)
         }
@@ -171,7 +172,7 @@ class Animation {
       if (reverse) {
         this._run({
           reverse: true,
-          fromTime: this.runTime,
+          fromTime,
           resolve: () => {
             this.repeat(true)
           }
@@ -179,7 +180,7 @@ class Animation {
       } else {
         this._run({
           reverse: false,
-          fromTime: this.runTime,
+          fromTime,
           resolve: () => {
             this._run({
               reverse: true,
@@ -228,9 +229,6 @@ class Animation {
       case 'linear':
         radio = Animation.getLinear(radio)
         break
-      case 'decelerate':
-        radio = Animation.getDecelerate(radio)
-        break
       case 'ease':
         radio = Animation.getEase(radio)
         break
@@ -239,6 +237,9 @@ class Animation {
         break
       case 'easeOut':
         radio = Animation.getEaseOut(radio)
+        break
+      case 'easeInOut':
+        radio = Animation.getEaseInOut(radio)
         break
     }
     if (reverse) {
@@ -255,18 +256,9 @@ class Animation {
     return radio
   }
 
-  /// 匀减速
-  static getDecelerate(radio) {
-    return (2 - radio) * radio
-  }
-
-  /// 开始加速，后面减速
+  /// 后面减速
   static getEase(radio) {
-    if (radio <= 0.5) {
-      return radio - (0.5 - radio) * radio * 1.5
-    } else {
-      return radio + (radio - 0.5) * (1 - radio) * 1.5
-    }
+    return radio + (1 - radio) * radio * 1.5
   }
 
   /// 开始慢，后面快
@@ -276,7 +268,16 @@ class Animation {
 
   /// 开始快，后面慢
   static getEaseOut(radio) {
-    return radio + (1 - radio) * radio * 1.5
+    return (2 - radio) * radio
+  }
+
+  /// 前面加速，后面减速
+  static getEaseInOut(radio) {
+    if (radio <= 0.5) {
+      return radio - (0.5 - radio) * radio * 1.5
+    } else {
+      return radio + (radio - 0.5) * (1 - radio) * 1.5
+    }
   }
 }
 
